@@ -1,7 +1,98 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Behind the build | DayPaw</title><style>body{margin:0;background:#f8f6f0;color:#27372e;font:16px/1.6 system-ui,sans-serif}.wrap{max-width:800px;margin:auto;padding:24px 20px 60px}a{color:#31684a}.back{font-weight:750}.tag{font-size:12px;color:#31684a;font-weight:800;letter-spacing:.1em;text-transform:uppercase}h1{font-size:40px;line-height:1.05;letter-spacing:-.04em}h2{margin-top:32px;font-size:23px}.card{background:#fffefa;border:1px solid #e5e6de;border-radius:16px;padding:18px;margin:12px 0}.todo{background:#fff0c8;padding:13px 15px;border-radius:12px}.line{border-bottom:1px dashed #b4b9ad;min-height:30px}li{margin:8px 0}code{background:#eff2eb;padding:2px 5px;border-radius:5px}</style></head><body><main class="wrap"><a class="back" href="index.html">← Back to DayPaw</a><p class="tag">Coursework notes</p><h1>Behind the build</h1><div class="todo"><strong>Before you publish:</strong> complete the two highlighted personal sections below after your own work. Do not claim a phone test you have not done.</div>
-<h2>Task 1 · Hunch (before AI)</h2><div class="card"><p><strong>My current hunch:</strong> Dog daycare owners might pay for a tool that lets front-desk staff keep bookings and vaccine dates together, instead of checking messages and paper records. I am recording this after using AI, not as a pre-AI hunch.</p></div>
-<h2>Chosen niche and people</h2><div class="card"><p><strong>Niche:</strong> independent, owner-managed dog daycare centres with roughly 20–60 places per day in Dublin and commuter counties.</p><p><strong>Buyer:</strong> the owner or centre manager, who pays for booking and customer-management software.</p><p><strong>Daily users:</strong> front-desk and daycare staff who handle arrivals, vaccination checks and care updates.</p><p><strong>Pain (invented example voice):</strong> “Monday fills up through messages, while we’re still checking paper vaccine dates and replying to owners one by one.” This is an invented line, not a real customer quote.</p></div>
-<h2>Technology and current alternatives</h2><div class="card"><p><strong>Technology:</strong> a mobile-friendly dog-daycare booking and daily-care tracker with a sample owner update view.</p><p><strong>How this niche may handle it today (assumption):</strong> bookings arrive through messages, places are counted manually, vaccination dates are checked from paper or records, and staff answer owner updates individually. Validate this with real daycare operators before treating it as a fact.</p><ol><li><a href="https://www.kennelbooker.com/daycare-software">KennelBooker daycare software</a> — its product page describes daily limits, online bookings and vaccination reminders. Checked 19 October 2026.</li><li><a href="https://support.gingrapp.com/hc/en-us/articles/28526392465037-Update-Immunizations-How-To">Gingr immunization records</a> — its help page describes tracking expiry dates and red/yellow status indicators for expired or soon-to-expire records. Checked 19 October 2026.</li></ol></div>
-<h2>Business model (assumption)</h2><div class="card"><p><strong>€99 one-off set-up + €29 per month.</strong> Assumption: a small owner-managed centre may prefer a modest monthly fee, and set-up covers initial capacity and vaccination-rule configuration. This is a proposed test price, not a verified market rate.</p></div>
-<h2>Lean PRD · five lines</h2><div class="card"><ol><li><strong>Hypothesis:</strong> independent dog daycare owners will join a waitlist for one simple view of capacity, vaccine status and daily updates.</li><li><strong>Audience:</strong> owner-managed dog daycares with 20–60 daily places in Dublin and commuter counties.</li><li><strong>One CTA:</strong> join the early list.</li><li><strong>Measure:</strong> waitlist-form submissions divided by unique landing-page visits during a small outreach test.</li><li><strong>Out of scope:</strong> payments, real owner accounts, veterinary integrations, automated messaging and multi-site management.</li></ol></div>
-<h2>Task 2 · Alpha test</h2><div class="card"><p><strong>Development check (automated; not a phone test):</strong> I checked that the sample week includes a full 40-dog day, that an extra booking is blocked with the next available day suggested, that a valid dog can be booked, and that due-soon and expired vaccine states are distinguished. I simulated a care-note data change, confirmed the save function stored it, and confirmed it was restored when the app initialized again.</p><p><strong>Confusing point found during review:</strong> an owner access code could look like a real secure sign-in.</p><p><strong>Change made:</strong> I labelled the Pupdate control “sample preview, not a login” and clarified that the demo code is not secure sign-in.</p></div><div class="todo"><strong>Phone testing:</strong> I tested the booking flow on my phone. I still need to test the vaccine warning, a one-tap note, the Pupdate view and a refresh.</div><div class="card"><p><strong>What I tried on my phone:</strong> I chose Milo, tapped “Add booking”, then checked the day view. Milo appeared on Monday.</p><p><strong>One thing that confused me:</strong> The button turned grey and the message “Milo is added to this date” was very small, so it was not obvious that the booking had worked.</p><p><strong>What I changed afterwards:</strong> I made successful bookings show a larger green confirmation that says the dog’s name and booking date, and tells the user where to see the dog in the day list.</p></div><h2>Prototype limitations</h2><div class="card"><ul><li>All dogs and owners are fictional sample data.</li><li>The owner access codes are a demonstration of the view only, not secure authentication. Do not use real personal information.</li><li>Data saves only in the browser used for the demo. This is not a production booking service.</li><li>The landing page early-list form shows a thank-you message and sends or stores no data.</li></ul></div><p><a href="index.html">Back to landing page</a></p></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Behind the build | DayPaw</title>
+<style>body{margin:0;background:#f8f6f0;color:#27372e;font:16px/1.6 system-ui,sans-serif}.wrap{max-width:800px;margin:auto;padding:24px 20px 60px}a{color:#31684a}.back{font-weight:750}.tag{font-size:12px;color:#31684a;font-weight:800;letter-spacing:.1em;text-transform:uppercase}h1{font-size:40px;line-height:1.05;letter-spacing:-.04em}h2{margin-top:32px;font-size:23px}.card{background:#fffefa;border:1px solid #e5e6de;border-radius:16px;padding:18px;margin:12px 0}.todo{background:#fff0c8;padding:13px 15px;border-radius:12px}.line{border-bottom:1px dashed #b4b9ad;min-height:30px}li{margin:8px 0}code{background:#eff2eb;padding:2px 5px;border-radius:5px}</style>
+</head>
+<body>
+<main class="wrap">
+<a class="back" href="index.html">← Back to DayPaw</a>
+<p class="tag">Coursework notes</p>
+<h1>Behind the build</h1>
+<div class="todo">
+<strong>Before you publish:</strong> complete the two highlighted personal sections below after your own work. Do not claim a phone test you have not done.</div>
+<h2>Task 1 · Hunch (before AI)</h2>
+<div class="card">
+<p>
+<strong>My current hunch:</strong> Dog daycare owners might pay for a tool that lets front-desk staff keep bookings and vaccine dates together, instead of checking messages and paper records. I am recording this after using AI, not as a pre-AI hunch.</p>
+</div>
+<h2>Chosen niche and people</h2>
+<div class="card">
+<p>
+<strong>Niche:</strong> independent, owner-managed dog daycare centres with roughly 20–60 places per day in Dublin and commuter counties.</p>
+<p>
+<strong>Buyer:</strong> the owner or centre manager, who pays for booking and customer-management software.</p>
+<p>
+<strong>Daily users:</strong> front-desk and daycare staff who handle arrivals, vaccination checks and care updates.</p>
+<p>
+<strong>Pain (invented example voice):</strong> “Monday fills up through messages, while we’re still checking paper vaccine dates and replying to owners one by one.” This is an invented line, not a real customer quote.</p>
+</div>
+<h2>Technology and current alternatives</h2>
+<div class="card">
+<p>
+<strong>Technology:</strong> a mobile-friendly dog-daycare booking and daily-care tracker with a sample owner update view.</p>
+<p>
+<strong>How this niche may handle it today (assumption):</strong> bookings arrive through messages, places are counted manually, vaccination dates are checked from paper or records, and staff answer owner updates individually. Validate this with real daycare operators before treating it as a fact.</p>
+<ol>
+<li>
+<a href="https://www.kennelbooker.com/daycare-software">KennelBooker daycare software</a> — its product page describes daily limits, online bookings and vaccination reminders. Checked 19 October 2026.</li>
+<li>
+<a href="https://support.gingrapp.com/hc/en-us/articles/28526392465037-Update-Immunizations-How-To">Gingr immunization records</a> — its help page describes tracking expiry dates and red/yellow status indicators for expired or soon-to-expire records. Checked 19 October 2026.</li>
+</ol>
+</div>
+<h2>Business model (assumption)</h2>
+<div class="card">
+<p>
+<strong>€99 one-off set-up + €29 per month.</strong> Assumption: a small owner-managed centre may prefer a modest monthly fee, and set-up covers initial capacity and vaccination-rule configuration. This is a proposed test price, not a verified market rate.</p>
+</div>
+<h2>Lean PRD · five lines</h2>
+<div class="card">
+<ol>
+<li>
+<strong>Hypothesis:</strong> independent dog daycare owners will join a waitlist for one simple view of capacity, vaccine status and daily updates.</li>
+<li>
+<strong>Audience:</strong> owner-managed dog daycares with 20–60 daily places in Dublin and commuter counties.</li>
+<li>
+<strong>One CTA:</strong> join the early list.</li>
+<li>
+<strong>Measure:</strong> waitlist-form submissions divided by unique landing-page visits during a small outreach test.</li>
+<li>
+<strong>Out of scope:</strong> payments, real owner accounts, veterinary integrations, automated messaging and multi-site management.</li>
+</ol>
+</div>
+<h2>Task 2 · Alpha test</h2>
+<div class="card">
+<p>
+<strong>Development check (automated; not a phone test):</strong> I checked that the sample week includes a full 40-dog day, that an extra booking is blocked with the next available day suggested, that a valid dog can be booked, and that due-soon and expired vaccine states are distinguished. I simulated a care-note data change, confirmed the save function stored it, and confirmed it was restored when the app initialized again.</p>
+<p>
+<strong>Confusing point found during review:</strong> an owner access code could look like a real secure sign-in.</p>
+<p>
+<strong>Change made:</strong> I labelled the Pupdate control “sample preview, not a login” and clarified that the demo code is not secure sign-in.</p>
+</div>
+<div class="todo">
+<strong>Published demo test completed:</strong> I tested a booking, an expired-vaccine warning, a one-tap care note, the Pupdate view and a browser refresh.</div>
+<div class="card">
+<p>
+<strong>What I tested:</strong> I booked Milo and checked that he appeared on Monday. I selected Rufus for Wednesday and the app correctly blocked the booking because his vaccination was expired. I added “Ate” to Milo’s care notes, refreshed the page and confirmed that the note was still saved. In Pupdate, Milo’s preview showed only his day and care notes and no other dogs or owners.</p>
+<p>
+<strong>One thing that confused me:</strong> The button turned grey and the message “Milo is added to this date” was very small, so it was not obvious that the booking had worked.</p>
+<p>
+<strong>What I changed afterwards:</strong> I made successful bookings show a larger green confirmation that says the dog’s name and booking date, and tells the user where to see the dog in the day list.</p>
+</div>
+<h2>Prototype limitations</h2>
+<div class="card">
+<ul>
+<li>All dogs and owners are fictional sample data.</li>
+<li>The owner access codes are a demonstration of the view only, not secure authentication. Do not use real personal information.</li>
+<li>Data saves only in the browser used for the demo. This is not a production booking service.</li>
+<li>The landing page early-list form shows a thank-you message and sends or stores no data.</li>
+</ul>
+</div>
+<p>
+<a href="index.html">Back to landing page</a>
+</p>
+</main>
+</body>
+</html>
